@@ -1,13 +1,12 @@
 #include "GC.h"
 
-namespace tcii::ex
-{ // begin namespace tcii::ex
+//////////////////////////////////////////////////////////
+// Begin namespace tcii::ex
+namespace tcii::ex{
 
 
 //////////////////////////////////////////////////////////
-//
 // Allocator implementation
-// =========
 Allocator* Allocator::_instance;
 
 // insert your code here

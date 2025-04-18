@@ -3,16 +3,14 @@
 
 #include <new>
 
-namespace tcii::ex
-{ // begin namespace tcii::ex
-
-
 //////////////////////////////////////////////////////////
-//
+// Begin namespace tcii::ex
+namespace tcii::ex{
+
+
 // BlockInfo class
-// =========
-struct BlockInfo
-{
+struct BlockInfo{
+
 	unsigned flag;
 	unsigned size;
 	BlockInfo* prev;
@@ -22,11 +20,9 @@ struct BlockInfo
 
 
 //////////////////////////////////////////////////////////
-//
 // Allocator class
-// =========
-class Allocator
-{
+class Allocator{
+
 public:
 	static constexpr auto minBlockSize = 16u;
 	static constexpr auto heapSize = 1048576u;

@@ -1,19 +1,18 @@
 #include "GC.h"
 
 inline void
-allocatorTest()
-{
+allocatorTest(){
+
 	using namespace tcii::ex;
 
 	// insert your code here
 }
 
-//
+//////////////////////////////////////////////////////////
 // Main function
-//
-int
-main()
-{
+int main(){
+
 	allocatorTest();
+	
 	return 0;
 }
