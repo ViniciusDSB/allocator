@@ -1,7 +1,7 @@
 #include "GC.h"
 
-inline void
-allocatorTest(){
+inline 
+void allocatorTest(){
 
 	using namespace tcii::ex;
 
