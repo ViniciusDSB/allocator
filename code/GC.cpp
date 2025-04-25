@@ -11,6 +11,19 @@ Allocator* Allocator::_instance;
 
 // insert your code here
 
+void Allocator::initialize(unsigned size){
+
+    freeBlocksList = reinterpret_cast<BlockInfo*>(heap); // Remember, heap is a pointer the first position of heap[]
+    freeBlocksList->flag = 0;
+    freeBlocksList->size - size;
+    freeBlocksList->next = nullptr;
+    freeBlocksList->prev = nullptr;
+
+    BlockInfo* footer = reinterpret_cast<BlockInfo*>(heap + size - sizeof(BlockInfo));
+    *footer = *freeBlocksList;
+
+}
+
 template <typename T> 
 T* Allocator::allocate(unsigned reqSize){
 
@@ -18,8 +31,8 @@ T* Allocator::allocate(unsigned reqSize){
     const auto fullReqSize = ( (2*sizeof(BlockInfo)) + reqSize );
 
     // By doing the following we guaratee only full blocks are allocated:
-    const auto blockAmount = ( ( (fullReqSize - 1) / MIN_BLOCK_SIZE ) + 1  );
-    const auto actuallSize = blockAmount * MIN_BLOCK_SIZE;
+    const auto blocksNeeded = ( ( (fullReqSize - 1) / MIN_BLOCK_SIZE ) + 1  );
+    const auto actualSize = blocksNeeded * MIN_BLOCK_SIZE;
 
     // Verificar se há na lista de blocks livres o tamanho requisitado, n;
     //  Se houver um bloco de tamanho b = n então todo o bloco é alocado

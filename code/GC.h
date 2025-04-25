@@ -32,9 +32,9 @@ class Allocator{
 
 public:
 	static constexpr auto MIN_BLOCK_SIZE = 16u;
-	static constexpr auto HEADP_SIZE = 1048576u;
+	static constexpr auto HEAP_SIZE = 1048576u;
 
-	static void initialize(unsigned = HEADP_SIZE);
+	static void initialize(unsigned = HEAP_SIZE);
 
 	template <typename T> static T* allocate(unsigned = 1);
 	static void free(void*);
@@ -44,9 +44,10 @@ public:
 
 private:
 	static Allocator* _instance;
-	// insert your code here
-	//Method for dealing with double linked circular list
 	
+	//Our virtual heap
+	static char heap[HEAP_SIZE]; // A 1048576 bytes list
+	static BlockInfo* freeBlocksList;
 
 }; // Allocator
 
