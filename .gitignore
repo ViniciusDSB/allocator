@@ -2,3 +2,5 @@ tcii-2025-ex1.pdf
 tips.txt
 allocator
 tmpSketch.xopp
+*.o
+.vscode/

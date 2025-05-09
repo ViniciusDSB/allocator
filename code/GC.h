@@ -2,6 +2,8 @@
 #define __GC_h
 
 #include <new>
+#include <stdlib.h>
+#include <iostream>
 
 //////////////////////////////////////////////////////////
 // Begin namespace tcii::ex
@@ -31,9 +33,10 @@ struct FreeBlock : BlockInfo{
 class Allocator{
 
 public:
+
 	static constexpr auto MIN_BLOCK_SIZE = 16u;
 	static constexpr auto HEAP_SIZE = 1048576u;
-
+	
 	static void initialize(unsigned = HEAP_SIZE);
 
 	template <typename T> static T* allocate(unsigned = 1);
@@ -46,7 +49,7 @@ private:
 	static Allocator* _instance;
 	
 	//Our virtual heap
-	static char heap[HEAP_SIZE]; // A 1048576 bytes list
+	static char _heap[HEAP_SIZE];
 	static BlockInfo* freeBlocksList;
 
 }; // Allocator

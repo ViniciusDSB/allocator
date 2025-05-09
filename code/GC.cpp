@@ -2,24 +2,28 @@
 
 //////////////////////////////////////////////////////////
 // Begin namespace tcii::ex
+
+
 namespace tcii::ex{
 
 
 //////////////////////////////////////////////////////////
 // Allocator implementation
 Allocator* Allocator::_instance;
+char Allocator::_heap[HEAP_SIZE];
+BlockInfo* Allocator::freeBlocksList;
 
 // insert your code here
 
 void Allocator::initialize(unsigned size){
 
-    freeBlocksList = reinterpret_cast<BlockInfo*>(heap); // Remember, heap is a pointer the first position of heap[]
+    freeBlocksList = reinterpret_cast<BlockInfo*>(_heap); // Remember, heap is a pointer the first position of heap[]
     freeBlocksList->flag = 0;
-    freeBlocksList->size - size;
-    freeBlocksList->next = nullptr;
+    freeBlocksList->size = HEAP_SIZE - 2*sizeof(BlockInfo); //FAZER O CALCULO EXATO!!!!!!!!!!!!
+    freeBlocksList->next = freeBlocksList;
     freeBlocksList->prev = nullptr;
 
-    BlockInfo* footer = reinterpret_cast<BlockInfo*>(heap + size - sizeof(BlockInfo));
+    BlockInfo* footer = reinterpret_cast<BlockInfo*>(_heap + size - sizeof(BlockInfo));
     *footer = *freeBlocksList;
 
 }
@@ -42,6 +46,35 @@ T* Allocator::allocate(unsigned reqSize){
     return nullptr;
 }
 
+
+void Allocator::printMemoryMap(){
+
+    using namespace std;
+
+    auto* listItem = freeBlocksList; // Reference to the first BlockInfo
+
+    if(listItem != NULL){
+
+        do{
+            
+            cout << endl;
+            
+            cout << (void*)listItem <<endl;
+            cout << listItem->size <<endl;
+            cout << listItem->flag <<endl;
+
+            cout << "---------------" <<endl;
+
+            listItem = listItem->next;
+
+        }while( listItem != freeBlocksList );
+
+    }
+
+
+    return;
+}
+
 //void Allocator::free(void* ptr){
 //
 //    // Verificar os blocos adjacentes
@@ -49,10 +82,6 @@ T* Allocator::allocate(unsigned reqSize){
 //    //  ...
 //    // Marcar o bloco apontado por ptr como livre
 //
-//    return;
-//}
-
-//void printMemoryMap(){
 //    return;
 //}
 

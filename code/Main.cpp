@@ -6,6 +6,9 @@ void allocatorTest(){
 	using namespace tcii::ex;
 
 	// insert your code here
+	Allocator* myHeap;
+	myHeap->initialize();
+	myHeap->printMemoryMap();
 }
 
 //////////////////////////////////////////////////////////
